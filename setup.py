@@ -1,0 +1,51 @@
+#!/usr/bin/env python
+from codecs import open
+import os
+from setuptools import setup, find_packages
+
+
+here = os.path.abspath(os.path.dirname(__file__))
+
+
+with open(os.path.join(here, 'README.md'), 'r', 'utf-8') as stream:
+    readme = stream.read()
+
+
+setup(
+    name='alembic-verify',
+    version='0.0.1',
+    description='A library to verify migrations and models are in sync.',
+    long_description=readme,
+    author='student.com',
+    author_email='dark-side@student.com',  # TODO - Add proper email here
+    url='https://github.com/Overseas-Student-Living/alembic-verify',
+    packages=find_packages(exclude=['test', 'test.*']),
+    install_requires=[
+        "alembic==0.8.3",
+    ],
+    extras_require={
+        'dev': [
+            "pytest==2.8.2",
+        ],
+        'docs': [
+            "Sphinx==1.3.1",
+        ],
+    },
+    # entry_points={
+    #     'pytest11': [
+    #         'pytest_alembicverify=alembicverify.testing.pytest'
+    #     ]
+    # },
+    zip_safe=True,
+    license='Apache License, Version 2.0',
+    classifiers=[
+        "Programming Language :: Python",
+        "Operating System :: Linux",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.3",
+        "Programming Language :: Python :: 3.4",
+        "Topic :: Internet",
+        "Topic :: Software Development :: Libraries :: Python Modules",
+        "Intended Audience :: Developers",
+    ]
+)
