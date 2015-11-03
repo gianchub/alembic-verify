@@ -23,6 +23,8 @@ setup(
     install_requires=[
         "six==1.10.0",
         "mock==1.3.0",
+        "mysql-connector-python==2.0.4",
+        "sqlalchemy-utils==0.31.2",
     ],
     extras_require={
         'dev': [
