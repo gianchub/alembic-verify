@@ -10,7 +10,7 @@ import pytest
 from alembicverify.util import CompareResult, InspectorFactory
 
 
-class TestCompareResult:
+class TestCompareResult(object):
 
     def test___init__(self):
         info, errors = Mock(), Mock()
@@ -54,7 +54,7 @@ class TestCompareResult:
         os.unlink(filename)
 
 
-class TestInspectorFactory:
+class TestInspectorFactory(object):
 
     @pytest.yield_fixture
     def create_engine_mock(self):

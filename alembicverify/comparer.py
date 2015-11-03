@@ -8,59 +8,68 @@ def compare(left_uri, right_uri, ignore_tables=None):
     """Compare two databases, given two URIs.
 
     Compare two databases, given two URIs and a (possibly None) set of
-    tables to ignore during the comparison.  It returns a `CompareResult`
-    instance populated with info and errors dictionaries.
+    tables to ignore during the comparison.
 
-    The info dict will follow this structure::
+    The `info` dict has this structure::
 
-    info = {
-        'uris': {
-            'left': 'left_uri',
-            'right': 'right_uri',
-        },
-        'tables': {
-            'left': 'tables_left',
-            'left_only': 'tables_left_only',
-            'right': 'tables_right',
-            'right_only': 'tables_right_only',
-            'common': ['table_name_1', 'table_name_2'],
-        },
-        'tables_data': {
-
-            'table_name_1': {
-                'foreign_keys': {
-                    'left_only': [...],
-                    'right_only': [...],
-                    'common': [...],
-                    'diff': [...],
-                },
-                'primary_keys': {
-                    'left_only': [...],
-                    'right_only': [...],
-                    'common': [...],
-                    'diff': [...],
-                },
-                'indexes': {
-                    'left_only': [...],
-                    'right_only': [...],
-                    'common': [...],
-                    'diff': [...],
-                },
-                'columns': {
-                    'left_only': [...],
-                    'right_only': [...],
-                    'common': [...],
-                    'diff': [...],
-                }
+        info = {
+            'uris': {
+                'left': 'left_uri',
+                'right': 'right_uri',
             },
+            'tables': {
+                'left': 'tables_left',
+                'left_only': 'tables_left_only',
+                'right': 'tables_right',
+                'right_only': 'tables_right_only',
+                'common': ['table_name_1', 'table_name_2'],
+            },
+            'tables_data': {
 
-            'table_name_2': { ... },
+                'table_name_1': {
+                    'foreign_keys': {
+                        'left_only': [...],
+                        'right_only': [...],
+                        'common': [...],
+                        'diff': [...],
+                    },
+                    'primary_keys': {
+                        'left_only': [...],
+                        'right_only': [...],
+                        'common': [...],
+                        'diff': [...],
+                    },
+                    'indexes': {
+                        'left_only': [...],
+                        'right_only': [...],
+                        'common': [...],
+                        'diff': [...],
+                    },
+                    'columns': {
+                        'left_only': [...],
+                        'right_only': [...],
+                        'common': [...],
+                        'diff': [...],
+                    }
+                },
+
+                'table_name_2': { ... },
+            }
         }
-    }
 
-    The errors dict will follow the same structure of the info dict, only
-    it will only have the data that is showing a discrepancy between the
-    two databases.
+    The `errors` dict will follow the same structure of the `info` dict,
+    but it will only have the data that is showing a discrepancy
+    between the two databases.
+
+    :param string left_uri: The URI for the first (left) database.
+    :param string right_uri: The URI for the second (right) database.
+    :param set ignore_tables:
+        A set of string values to be excluded from both databases (if
+        present) when doing the comparison.  String matching is case
+        sensitive.
+    :return:
+        A :class:`~.util.CompareResult` object with `info` and `errors`
+        dict populated with the comparison result.
     """
     if ignore_tables is None:
         ignore_tables = set()
@@ -88,6 +97,7 @@ def _get_inspectors(left_uri, right_uri):
 
 
 def _get_tables_info(left_inspector, right_inspector, ignore_tables):
+    """Get information about the differences at the table level. """
     tables_left, tables_right = _get_tables(
         left_inspector, right_inspector, ignore_tables)
 
@@ -127,7 +137,7 @@ def _get_common_tables(tables_left, tables_right):
 
 
 def _get_info_dict(left_uri, right_uri, tables_info):
-
+    """Create an empty stub for the `info` dict. """
     info = {
         'uris': {
             'left': left_uri,
@@ -295,7 +305,7 @@ def _process_type(type_):
 
 
 def _compile_errors(info):
-    """Calculate errors from info dict. """
+    """Create `errors` dict from `info` dict. """
     errors_template = {
         'tables': {},
         'tables_data': {},
@@ -328,4 +338,5 @@ def _compile_errors(info):
 
 
 def _make_result(info, errors):
+    """Create a :class:`~.util.CompareResult` object. """
     return CompareResult(info, errors)

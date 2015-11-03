@@ -50,7 +50,7 @@ def mock_inspector_factory():
 
 
 @pytest.mark.usefixtures("mock_inspector_factory")
-class TestCompareCallsChain:
+class TestCompareCallsChain(object):
     """This test class makes sure the `compare` function inside process
     works as expected.
     """
@@ -159,7 +159,7 @@ class TestCompareCallsChain:
 
 
 @pytest.mark.usefixtures("mock_inspector_factory")
-class TestCompareInternals:
+class TestCompareInternals(object):
 
     ## FIXTURES
 
