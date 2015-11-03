@@ -1,11 +1,6 @@
 # -*- coding: utf-8 -*-
 from unittest import TestCase
 
-try:
-    from unittest.mock import Mock, patch, call
-except ImportError:
-    from mock import Mock, patch, call
-
 import six
 
 

@@ -6,7 +6,7 @@ import uuid
 import pytest
 
 from alembicverify.util import CompareResult, InspectorFactory
-from test import Mock, patch, call
+from mock import Mock, patch, call
 
 
 class TestCompareResult(object):

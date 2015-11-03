@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 import pytest
 
-from test import Mock, patch, call
-
+from mock import Mock, patch, call
 
 from alembicverify.comparer import (
     _compile_errors,
