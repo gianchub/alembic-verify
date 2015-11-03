@@ -2,9 +2,6 @@
 
 from unittest import TestCase
 from unittest.mock import Mock, patch, call
-import json
-import os
-import uuid
 
 import pytest
 
@@ -743,47 +740,3 @@ class TestCompareInternals:
         errors = _compile_errors(info)
 
         assert expected_errors == errors
-
-
-class TestCompareResult:
-
-    def test___init__(self):
-        info, errors = Mock(), Mock()
-
-        result = CompareResult(info, errors)
-
-        assert info == result.info
-        assert errors == result.errors
-
-    def test_is_match(self):
-        info, errors = {}, {}
-        result = CompareResult(info, errors)
-
-        assert True == result.is_match
-
-        result.errors = {1: 1}
-        assert False == result.is_match
-
-    def test_dump_info(self):
-        info = {'some': 'info'}
-        filename = '{}.txt'.format(uuid.uuid4())
-        result = CompareResult(info, {})
-
-        result.dump_info(filename=filename)
-
-        with open(filename, 'rU') as stream:
-            assert info == json.loads(stream.read())
-
-        os.unlink(filename)
-
-    def test_dump_errors(self):
-        errors = {'some': 'errors'}
-        filename = '{}.txt'.format(uuid.uuid4())
-        result = CompareResult({}, errors)
-
-        result.dump_errors(filename=filename)
-
-        with open(filename, 'rU') as stream:
-            assert errors == json.loads(stream.read())
-
-        os.unlink(filename)
