@@ -1,12 +1,15 @@
 # -*- coding: utf-8 -*-
 from unittest import TestCase
 
+try:
+    from unittest.mock import Mock, patch, call
+except ImportError:
+    from mock import Mock, patch, call
+
 import six
 
 
-# Distinction logic in one place
 if six.PY2:
-    from mock import Mock, patch, call
 
     class TestCasePatch(TestCase):
         """Provide the assert_items_equal method for testing. """
@@ -15,6 +18,5 @@ if six.PY2:
     assert_items_equal = TestCasePatch().assertItemsEqual
 
 else:
-    from unittest.mock import Mock, patch, call
 
     assert_items_equal = TestCase().assertCountEqual
