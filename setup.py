@@ -21,11 +21,11 @@ setup(
     url='https://github.com/Overseas-Student-Living/alembic-verify',
     packages=find_packages(exclude=['test', 'test.*']),
     install_requires=[
-        "alembic==0.8.3",
     ],
     extras_require={
         'dev': [
             "pytest==2.8.2",
+            "alembic==0.8.3",
         ],
         'docs': [
             "Sphinx==1.3.1",
@@ -41,6 +41,8 @@ setup(
     classifiers=[
         "Programming Language :: Python",
         "Operating System :: Linux",
+        "Programming Language :: Python :: 2",
+        "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.3",
         "Programming Language :: Python :: 3.4",
