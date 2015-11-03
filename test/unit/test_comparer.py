@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
-
-from unittest import TestCase
-from unittest.mock import Mock, patch, call
-
 import pytest
+
+from test import Mock, patch, call
+
 
 from alembicverify.comparer import (
     _compile_errors,
@@ -32,11 +31,7 @@ from alembicverify.comparer import (
     InspectorFactory,
     TablesInfo,
 )
-
-
-def assert_items_equal(first, second, msg=None):
-    """Dispatch to `assertCountEqual` with same signature. """
-    return TestCase().assertCountEqual(first, second, msg)
+from test import assert_items_equal
 
 
 @pytest.yield_fixture

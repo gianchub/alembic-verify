@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-
-from unittest.mock import Mock, patch, call
 import json
 import os
 import uuid
@@ -8,6 +6,7 @@ import uuid
 import pytest
 
 from alembicverify.util import CompareResult, InspectorFactory
+from test import Mock, patch, call
 
 
 class TestCompareResult(object):

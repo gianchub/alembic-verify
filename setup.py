@@ -21,6 +21,8 @@ setup(
     url='https://github.com/Overseas-Student-Living/alembic-verify',
     packages=find_packages(exclude=['test', 'test.*']),
     install_requires=[
+        "six==1.10.0",
+        "mock==1.3.0",
     ],
     extras_require={
         'dev': [
