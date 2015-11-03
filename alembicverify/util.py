@@ -1,0 +1,53 @@
+# -*- coding: utf-8 -*-
+from collections import namedtuple
+import json
+
+from sqlalchemy import inspect, create_engine
+
+
+TablesInfo = namedtuple(
+    'TablesInfo', ['left', 'right', 'left_only', 'right_only', 'common'])
+
+
+DiffResult = namedtuple(
+    'DiffResult', ['left_only', 'right_only', 'common', 'diff'])
+
+
+class InspectorFactory:
+    """Give you a :func:`sqlalchemy.inspect` instance given a URI. """
+
+    @classmethod
+    def from_uri(cls, uri):
+        engine = create_engine(uri)
+        inspector = inspect(engine)
+        return inspector
+
+
+class CompareResult:
+
+    def __init__(self, info, errors):
+        self.info = info
+        self.errors = errors
+
+    @property
+    def is_match(self):
+        return not self.errors
+
+    def dump_info(self, filename='info_dump.json'):
+        return self._dump(self.info, filename)
+
+    def dump_errors(self, filename='errors_dump.json'):
+        return self._dump(self.errors, filename)
+
+    def _dump(self, data_to_dump, filename):
+        data = self._dump_data(data_to_dump)
+        if filename is not None:
+            self._write_data_to_file(data, filename)
+        return data
+
+    def _dump_data(self, data):
+        return json.dumps(data, indent=4, sort_keys=True)
+
+    def _write_data_to_file(self, data, filename):
+        with open(filename, 'w') as stream:
+            stream.write(data)
