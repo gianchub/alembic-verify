@@ -11,6 +11,7 @@ from alembic.script import ScriptDirectory
 from sqlalchemy import create_engine
 from sqlalchemy_utils import create_database, drop_database, database_exists
 import pytest
+import six
 
 from .models import Base
 from alembicverify.comparer import compare
@@ -38,7 +39,7 @@ def uri_right(db_uri):
 
 
 def _get_temporary_uri(db_uri):
-    base, _ = db_uri.rsplit('/', maxsplit=1)
+    base, _ = db_uri.rsplit('/', 1)
     uri = '{}/test_db_{}'.format(base, uuid4().hex)
     return uri
 
