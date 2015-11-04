@@ -110,7 +110,8 @@ def test_model_and_migration_schemas_are_not_the_same(
     the one we get out of the models.  It produces a text file with the
     results to help debug differences.
     """
-    prepare_schema_from_migrations(uri_left, alembic_config_left, step="+1")
+    prepare_schema_from_migrations(
+        uri_left, alembic_config_left, revision="+1")
     prepare_schema_from_models(uri_right)
 
     result = compare(uri_left, uri_right, set(['alembic_version']))
