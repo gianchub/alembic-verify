@@ -12,9 +12,6 @@ from .util import (
 from alembicverify.comparer import compare
 
 
-pytest_plugins = "alembicverify.testing.pyfixtures"
-
-
 @pytest.mark.usefixtures("new_db_left")
 def test_upgrade_and_downgrade(uri_left, alembic_config_left):
     """Test all migrations up and down.
