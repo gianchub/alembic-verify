@@ -25,23 +25,42 @@ class Base(object):
 Base = declarative_base(cls=Base)
 
 
-class Person(Base):
-    __tablename__ = "people"
+class Employee(Base):
+    __tablename__ = "employees"
 
     id = Column(Integer, primary_key=True)
     name = Column(Unicode(200), unique=True, index=True)
-    age = Column(Integer, nullable=True)
-    favourite_pet = Column(Enum(u"cat", u"dog", u"other"), nullable=True)
+    age = Column(Integer, nullable=False, default=18)
+    ssn = Column(Unicode(30), nullable=False)
+    favourite_meal = Column(
+        Enum("meat", "vegetarian"),
+        nullable=False,
+        default="vegetarian"
+    )
+
+    company_id = Column(
+        Integer,
+        ForeignKey("companies.id"),
+        nullable=False
+    )
+
+
+class Company(Base):
+    __tablename__ = "companies"
+
+    id = Column(Integer, primary_key=True)
+    name = Column(Unicode(200), nullable=False, unique=True)
 
 
 class PhoneNumber(Base):
     __tablename__ = "phone_numbers"
 
     id = Column(Integer, primary_key=True)
-    number = Column(String(40), nullable=True)
-    person_id = Column(
+    number = Column(String(40), nullable=False)
+
+    owner = Column(
         Integer,
-        ForeignKey("people.id"),
+        ForeignKey("employees.id"),
         nullable=False
     )
 
@@ -57,6 +76,6 @@ class Address(Base):
 
     person_id = Column(
         Integer,
-        ForeignKey("people.id"),
+        ForeignKey("employees.id"),
         nullable=False
     )
