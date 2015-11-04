@@ -11,6 +11,7 @@ from sqlalchemy_utils import create_database, drop_database, database_exists
 import pytest
 
 from .models import Base
+from alembicverify.comparer import compare
 
 
 db_uri_base = "mysql+mysqlconnector://root:@localhost/alembicverify"
@@ -140,42 +141,42 @@ def test_upgrade_and_downgrade(uri_left, alembic_config_left):
         current = get_current_revision(alembic_config_left, engine, script)
 
 
-# @pytest.mark.usefixtures("new_db_left")
-# @pytest.mark.usefixtures("new_db_right")
-# def test_same_schema_is_the_same(
-#         uri_left, uri_right, alembic_config_left, alembic_config_right):
-#     """Compare two databases both from migrations.
+@pytest.mark.usefixtures("new_db_left")
+@pytest.mark.usefixtures("new_db_right")
+def test_same_schema_is_the_same(
+        uri_left, uri_right, alembic_config_left, alembic_config_right):
+    """Compare two databases both from migrations.
 
-#     Makes sure the schema comparer validates a database to an exact
-#     replica of itself.
-#     """
-#     prepare_schema_from_migrations(uri_left, alembic_config_left)
-#     prepare_schema_from_migrations(uri_right, alembic_config_right)
+    Makes sure the schema comparer validates a database to an exact
+    replica of itself.
+    """
+    prepare_schema_from_migrations(uri_left, alembic_config_left)
+    prepare_schema_from_migrations(uri_right, alembic_config_right)
 
-#     result = compare(uri_left, uri_right, set(['alembic_version']))
+    result = compare(uri_left, uri_right, set(['alembic_version']))
 
-#     # uncomment to see the dump of info dict
-#     # result.dump_info()
+    # uncomment to see the dump of info dict
+    result.dump_info()
 
-#     assert True == result.is_match
+    assert True == result.is_match
 
 
-# @pytest.mark.usefixtures("new_db_left")
-# @pytest.mark.usefixtures("new_db_right")
-# def test_model_and_migration_schemas_are_the_same(
-#         uri_left, uri_right, alembic_config_left):
-#     """Compare two databases.
+@pytest.mark.usefixtures("new_db_left")
+@pytest.mark.usefixtures("new_db_right")
+def test_model_and_migration_schemas_are_the_same(
+        uri_left, uri_right, alembic_config_left):
+    """Compare two databases.
 
-#     Compares the database obtained with the migrations against the one
-#     we get out of the models.  It produces a text file with the results
-#     to help debug differences.
-#     """
-#     prepare_schema_from_migrations(uri_left, alembic_config_left)
-#     prepare_schema_from_models(uri_right)
+    Compares the database obtained with the migrations against the one
+    we get out of the models.  It produces a text file with the results
+    to help debug differences.
+    """
+    prepare_schema_from_migrations(uri_left, alembic_config_left)
+    prepare_schema_from_models(uri_right)
 
-#     result = compare(uri_left, uri_right, set(['alembic_version']))
+    result = compare(uri_left, uri_right, set(['alembic_version']))
 
-#     # uncomment to see the dump of errors dict
-#     # result.dump_errors()
+    # uncomment to see the dump of errors dict
+    result.dump_errors()
 
-#     assert True == result.is_match
+    assert True == result.is_match
