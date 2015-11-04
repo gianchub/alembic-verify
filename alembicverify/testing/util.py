@@ -14,13 +14,13 @@ from test import assert_items_equal
 
 
 def new_db(uri):
-    """Drop the database at `uri` and create a brand new one. """
+    """Drop the database at ``uri`` and create a brand new one. """
     safe_destroy_database(uri)
     create_database(uri)
 
 
 def safe_destroy_database(uri):
-    """Safely destroy the database at `uri`. """
+    """Safely destroy the database at ``uri``. """
     if database_exists(uri):
         drop_database(uri)
 
@@ -31,7 +31,7 @@ def get_temporary_uri(uri):
     For example, given this uri:
     "mysql+mysqlconnector://root:@localhost/alembicverify"
 
-    a call to `get_temporary_uri``could return something like this:
+    a call to ``get_temporary_uri(uri)`` could return something like this:
     "mysql+mysqlconnector://root:@localhost/test_db_000da...898fe"
 
     where the last part of the name is taken from a unique ID in hex
@@ -56,7 +56,7 @@ def prepare_schema_from_migrations(uri, config, revision="head"):
     :param string uri: The URI for the database.
     :param config: A :class:`alembic.config.Config` instance.
     :param revision: The revision we want to feed to the
-        `command.upgrade` call. Normally it's either "head" or "+1".
+        ``command.upgrade`` call. Normally it's either "head" or "+1".
     """
     engine = create_engine(uri)
     script = ScriptDirectory.from_config(config)
@@ -65,7 +65,7 @@ def prepare_schema_from_migrations(uri, config, revision="head"):
 
 
 def prepare_schema_from_models(uri):
-    """Creates the database schema from the `SQLAlchemy` models. """
+    """Creates the database schema from the ``SQLAlchemy`` models. """
     engine = create_engine(uri)
     Base.metadata.create_all(engine)
 
@@ -103,7 +103,7 @@ def compare_error_dicts(err1, err2):
     In order to do this, we use the walk_dict function to perform a
     smart comparison only on the lists.
 
-    This function compares the `tables` and `uris` items, then it does
+    This function compares the ``tables`` and ``uris`` items, then it does
     an order-insensitive comparison of all lists, and finally it compares
     that the sorted JSON dump of both dicts is the same.
     """
@@ -131,16 +131,17 @@ def walk_dict(d, path):
 
     For example, if we have a dict like this::
 
-    d = {
-        'a': {
-            'B': {
-                1: ['hello', 'world'],
-                2: ['hello', 'again'],
+        d = {
+            'a': {
+                'B': {
+                    1: ['hello', 'world'],
+                    2: ['hello', 'again'],
+                }
             }
         }
-    }
 
-    Then `walk_dict(d, ['a', 'B', 1])` would return `['hello', 'world']`.
+    Then ``walk_dict(d, ['a', 'B', 1])`` would return
+    ``['hello', 'world']``.
     """
     if not path:
         return d

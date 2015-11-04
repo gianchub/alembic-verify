@@ -13,6 +13,8 @@ Contents:
 
    comparer
    util
+   testing/index
+
 
 
 Indices and tables

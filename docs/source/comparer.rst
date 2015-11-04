@@ -1,7 +1,6 @@
 Comparer
 ========
 
-
 Provides the :func:`~.comparer.compare` function that is used to compare
 two databases.
 
@@ -10,3 +9,6 @@ two databases.
     :members:
     :undoc-members:
     :private-members:
+
+
+:doc:`Index <index>`
