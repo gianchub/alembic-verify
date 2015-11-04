@@ -7,10 +7,10 @@ from .util import TablesInfo, DiffResult, InspectorFactory, CompareResult
 def compare(left_uri, right_uri, ignore_tables=None):
     """Compare two databases, given two URIs.
 
-    Compare two databases, given two URIs and a (possibly None) set of
+    Compare two databases, given two URIs and a (possibly empty) set of
     tables to ignore during the comparison.
 
-    The `info` dict has this structure::
+    The ``info`` dict has this structure::
 
         info = {
             'uris': {
@@ -57,8 +57,8 @@ def compare(left_uri, right_uri, ignore_tables=None):
             }
         }
 
-    The `errors` dict will follow the same structure of the `info` dict,
-    but it will only have the data that is showing a discrepancy
+    The ``errors`` dict will follow the same structure of the ``info``
+    dict, but it will only have the data that is showing a discrepancy
     between the two databases.
 
     :param string left_uri: The URI for the first (left) database.
@@ -68,8 +68,8 @@ def compare(left_uri, right_uri, ignore_tables=None):
         present) when doing the comparison.  String matching is case
         sensitive.
     :return:
-        A :class:`~.util.CompareResult` object with `info` and `errors`
-        dict populated with the comparison result.
+        A :class:`~.util.CompareResult` object with ``info`` and
+        ``errors`` dicts populated with the comparison result.
     """
     if ignore_tables is None:
         ignore_tables = set()
@@ -112,6 +112,7 @@ def _get_tables_info(left_inspector, right_inspector, ignore_tables):
 
 
 def _get_tables(left_inspector, right_inspector, ignore_tables):
+    """Get table names for both databases. ``ignore_tables`` are removed. """
     tables_left = _get_tables_names(left_inspector, ignore_tables)
     tables_right = _get_tables_names(right_inspector, ignore_tables)
     return tables_left, tables_right
@@ -295,17 +296,17 @@ def _process_types(column_dict):
 
 
 def _process_type(type_):
-    """Process the SQLAlchemy Column Type `type_`.
+    """Process the SQLAlchemy Column Type ``type_``.
 
-    Calls :meth:`sqlalchemy.sql.type_api.TypeEngine.compile` on `type_`
-    to produce a string-compiled form of it.  "string-compiled" meaning
-    as it would be used for a SQL clause.
+    Calls :meth:`sqlalchemy.sql.type_api.TypeEngine.compile` on
+    ``type_`` to produce a string-compiled form of it.  "string-compiled"
+    meaning as it would be used for a SQL clause.
     """
     return type_.compile()
 
 
 def _compile_errors(info):
-    """Create `errors` dict from `info` dict. """
+    """Create ``errors`` dict from ``info`` dict. """
     errors_template = {
         'tables': {},
         'tables_data': {},
