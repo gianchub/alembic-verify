@@ -28,7 +28,9 @@ def uri_right(db_uri):
 
 @pytest.fixture
 def alembic_root():
-    return os.path.join(os.path.dirname(__file__), 'migrations', 'alembic')
+    return os.path.join(
+        os.path.dirname(__file__), 'testing', 'migrations', 'alembic'
+    )
 
 
 @pytest.fixture

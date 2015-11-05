@@ -1,18 +1,17 @@
 # -*- coding: utf-8 -*-
 import json
 
-import pytest
 from alembic import command
+import pytest
 
-from .util import (
+from alembicverify.comparer import compare
+from alembicverify.util import (
     get_current_revision,
     get_head_revision,
     prepare_schema_from_migrations,
     prepare_schema_from_models,
     walk_dict,
 )
-from alembicverify.comparer import compare
-
 from test import assert_items_equal
 
 

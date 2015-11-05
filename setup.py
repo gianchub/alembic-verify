@@ -37,7 +37,7 @@ setup(
     },
     entry_points={
         'pytest11': [
-            'pyfixtures=alembicverify.testing.pyfixtures'
+            'pyfixtures=alembicverify.pyfixtures'
         ]
     },
     zip_safe=True,

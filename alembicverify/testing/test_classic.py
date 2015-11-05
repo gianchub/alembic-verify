@@ -6,13 +6,14 @@ and migrations using this library and a classical approach based on
 unittest.
 """
 
-import os
 import json
+import os
 from unittest import TestCase
 
 from alembic import command
 
-from .util import (
+from alembicverify.comparer import compare
+from alembicverify.util import (
     get_current_revision,
     get_head_revision,
     get_temporary_uri,
@@ -23,8 +24,6 @@ from .util import (
     safe_destroy_database,
     walk_dict,
 )
-from alembicverify.comparer import compare
-
 from test import assert_items_equal
 
 
