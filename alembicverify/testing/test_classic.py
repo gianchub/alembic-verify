@@ -25,6 +25,7 @@ from alembicverify.util import (
     walk_dict,
 )
 from test import assert_items_equal
+from .models import Base
 
 
 class TestCompare(TestCase):
@@ -95,7 +96,7 @@ class TestCompare(TestCase):
         """
         prepare_schema_from_migrations(
             self.uri_left, self.alembic_config_left, revision="+1")
-        prepare_schema_from_models(self.uri_right)
+        prepare_schema_from_models(self.uri_right, Base)
 
         result = compare(
             self.uri_left, self.uri_right, set(['alembic_version']))
@@ -243,7 +244,7 @@ class TestCompare(TestCase):
         results to help debug differences.
         """
         prepare_schema_from_migrations(self.uri_left, self.alembic_config_left)
-        prepare_schema_from_models(self.uri_right)
+        prepare_schema_from_models(self.uri_right, Base)
 
         result = compare(
             self.uri_left, self.uri_right, set(['alembic_version']))

@@ -18,6 +18,7 @@ from alembicverify.util import (
     walk_dict,
 )
 from test import assert_items_equal
+from .models import Base
 
 
 @pytest.fixture(scope="module")
@@ -116,7 +117,7 @@ def test_model_and_migration_schemas_are_not_the_same(
     """
     prepare_schema_from_migrations(
         uri_left, alembic_config_left, revision="+1")
-    prepare_schema_from_models(uri_right)
+    prepare_schema_from_models(uri_right, Base)
 
     result = compare(uri_left, uri_right, set(['alembic_version']))
 
@@ -268,7 +269,7 @@ def test_model_and_migration_schemas_are_the_same(
     results to help debug differences.
     """
     prepare_schema_from_migrations(uri_left, alembic_config_left)
-    prepare_schema_from_models(uri_right)
+    prepare_schema_from_models(uri_right, Base)
 
     result = compare(uri_left, uri_right, set(['alembic_version']))
 

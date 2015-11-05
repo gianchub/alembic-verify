@@ -10,9 +10,6 @@ from alembic.script import ScriptDirectory
 from sqlalchemy import inspect, create_engine
 from sqlalchemy_utils import create_database, drop_database, database_exists
 
-from alembicverify.testing.models import Base
-from test import assert_items_equal
-
 
 TablesInfo = namedtuple(
     'TablesInfo', ['left', 'right', 'left_only', 'right_only', 'common'])
@@ -128,10 +125,10 @@ def prepare_schema_from_migrations(uri, config, revision="head"):
     return engine, script
 
 
-def prepare_schema_from_models(uri):
+def prepare_schema_from_models(uri, sqlalchemy_base):
     """Creates the database schema from the ``SQLAlchemy`` models. """
     engine = create_engine(uri)
-    Base.metadata.create_all(engine)
+    sqlalchemy_base.metadata.create_all(engine)
 
 
 def get_current_revision(config, engine, script):
