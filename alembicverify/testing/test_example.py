@@ -1,15 +1,19 @@
 # -*- coding: utf-8 -*-
+import json
+
 import pytest
 from alembic import command
 
 from .util import (
-    compare_error_dicts,
     get_current_revision,
     get_head_revision,
     prepare_schema_from_migrations,
     prepare_schema_from_models,
+    walk_dict,
 )
 from alembicverify.comparer import compare
+
+from test import assert_items_equal
 
 
 @pytest.mark.usefixtures("new_db_left")
@@ -167,6 +171,40 @@ def test_model_and_migration_schemas_are_not_the_same(
     }
 
     compare_error_dicts(errors, result.errors)
+
+
+def compare_error_dicts(err1, err2):
+    """Smart comparer of error dicts.
+
+    We cannot directly compare a nested dict structure that has lists
+    as values on some level. The order of the same list in the two dicts
+    could be different, which would lead to a failure in the comparison,
+    but it would be wrong as for us the order doesn't matter and we need
+    a comparison that only checks that the same items are in the lists.
+    In order to do this, we use the walk_dict function to perform a
+    smart comparison only on the lists.
+
+    This function compares the ``tables`` and ``uris`` items, then it does
+    an order-insensitive comparison of all lists, and finally it compares
+    that the sorted JSON dump of both dicts is the same.
+    """
+    assert err1['tables'] == err2['tables']
+    assert err1['uris'] == err2['uris']
+
+    paths = [
+        ['tables_data', 'employees', 'columns', 'left_only'],
+        ['tables_data', 'employees', 'columns', 'right_only'],
+        ['tables_data', 'employees', 'indexes', 'left_only'],
+        ['tables_data', 'employees', 'indexes', 'right_only'],
+        ['tables_data', 'employees', 'foreign_keys', 'right_only'],
+
+        ['tables_data', 'phone_numbers', 'columns', 'diff'],
+    ]
+
+    for path in paths:
+        assert_items_equal(walk_dict(err1, path), walk_dict(err2, path))
+
+    assert sorted(json.dumps(err1)) == sorted(json.dumps(err2))
 
 
 @pytest.mark.usefixtures("new_db_left")
