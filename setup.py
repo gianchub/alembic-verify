@@ -35,11 +35,6 @@ setup(
             "Sphinx==1.3.1",
         ],
     },
-    entry_points={
-        'pytest11': [
-            'pyfixtures=alembicverify.pyfixtures'
-        ]
-    },
     zip_safe=True,
     license='Apache License, Version 2.0',
     classifiers=[
