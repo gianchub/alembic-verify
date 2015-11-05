@@ -1,0 +1,2 @@
+Move this folder docs/testing to alembicverify/testing to activate these tests
+and the whole migrations mechanism. 

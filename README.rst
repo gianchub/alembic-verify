@@ -148,3 +148,7 @@ Installation
 Usage
 -----
 
+- Compare databases with ``compare``
+- Utilities
+    - Test examples (``pytest``)
+    - Test examples (``unittest``)
