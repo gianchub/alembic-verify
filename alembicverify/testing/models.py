@@ -25,67 +25,6 @@ class Base(object):
 Base = declarative_base(cls=Base)
 
 
-"""First version of the models - Use these to create the initial migration. """
-
-# class Employee(Base):
-#     __tablename__ = "employees"
-
-#     id = Column(Integer, primary_key=True)
-#     name = Column(Unicode(200), unique=True)
-#     age = Column(Integer, nullable=False, default=18)
-#     ssn = Column(Unicode(30), nullable=False)
-#     favourite_meal = Column(
-#         Enum("meat", "vegan", "vegetarian"),
-#         nullable=False,
-#         default="vegetarian"
-#     )
-
-#     company_id = Column(
-#         Integer,
-#         ForeignKey("companies.id", name="fk_employees_companies"),
-#         nullable=False
-#     )
-
-
-# class Company(Base):
-#     __tablename__ = "companies"
-
-#     id = Column(Integer, primary_key=True)
-#     name = Column(Unicode(200), nullable=False, unique=True)
-
-
-# class PhoneNumber(Base):
-#     __tablename__ = "phone_numbers"
-
-#     id = Column(Integer, primary_key=True)
-#     number = Column(String(40), nullable=True)
-
-#     owner = Column(
-#         Integer,
-#         ForeignKey("employees.id", name="fk_phone_numbers_employees"),
-#         nullable=False
-#     )
-
-
-# class Address(Base):
-#     __tablename__ = "addresses"
-
-#     id = Column(Integer, primary_key=True)
-#     address = Column(Unicode(200), nullable=True)
-#     zip_code = Column(Unicode(20), nullable=True)
-#     city = Column(Unicode(100), nullable=True)
-#     country = Column(Unicode(3), nullable=True)
-
-#     person_id = Column(
-#         Integer,
-#         ForeignKey("employees.id", name="fk_addresses_employees"),
-#         nullable=False
-#     )
-
-
-
-"""Second version of the models - Use these to create the second migration. """
-
 class Employee(Base):
     __tablename__ = "employees"
 
