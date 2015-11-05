@@ -50,7 +50,7 @@ library.
 Create a virtual environment for the project, activate it and install
 the dependencies:
 
-    $ pip install -e ".[dev]" -e ".[docs]"
+    $ pip install -e ".[dev,docs]" --allow-external mysql-connector-python
 
 then change into the ``docs`` folder and run:
 
