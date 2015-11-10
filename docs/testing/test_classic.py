@@ -21,7 +21,7 @@ from alembicverify.util import (
     new_db,
     prepare_schema_from_migrations,
     prepare_schema_from_models,
-    safe_destroy_database,
+    destroy_database,
     walk_dict,
 )
 from test import assert_items_equal
@@ -47,8 +47,8 @@ class TestCompare(TestCase):
         new_db(self.uri_right)
 
     def tearDown(self):
-        safe_destroy_database(self.uri_left)
-        safe_destroy_database(self.uri_right)
+        destroy_database(self.uri_left)
+        destroy_database(self.uri_right)
 
     def test_upgrade_and_downgrade(self):
         """Test all migrations up and down.

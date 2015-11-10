@@ -76,12 +76,12 @@ class CompareResult(object):
 
 def new_db(uri):
     """Drop the database at ``uri`` and create a brand new one. """
-    safe_destroy_database(uri)
+    destroy_database(uri)
     create_database(uri)
 
 
-def safe_destroy_database(uri):
-    """Safely destroy the database at ``uri``. """
+def destroy_database(uri):
+    """Destroy the database at ``uri``, if it exists. """
     if database_exists(uri):
         drop_database(uri)
 

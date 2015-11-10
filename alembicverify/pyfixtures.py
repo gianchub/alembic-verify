@@ -5,7 +5,7 @@ from alembicverify.util import (
     get_temporary_uri,
     make_alembic_config,
     new_db,
-    safe_destroy_database,
+    destroy_database,
 )
 
 
@@ -40,11 +40,11 @@ def alembic_config_right(uri_right, alembic_root):
 def new_db_left(uri_left):
     new_db(uri_left)
     yield
-    safe_destroy_database(uri_left)
+    destroy_database(uri_left)
 
 
 @pytest.yield_fixture
 def new_db_right(uri_right):
     new_db(uri_right)
     yield
-    safe_destroy_database(uri_right)
+    destroy_database(uri_right)

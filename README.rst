@@ -112,8 +112,8 @@ is how you could go about it:
             new_db(self.uri_right)
 
         def tearDown(self):
-            safe_destroy_database(self.uri_left)
-            safe_destroy_database(self.uri_right)
+            destroy_database(self.uri_left)
+            destroy_database(self.uri_right)
 
         def test_model_and_migration_schemas_are_the_same(self):
             prepare_schema_from_migrations(self.uri_left, self.alembic_config_left)
