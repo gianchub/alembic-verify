@@ -87,19 +87,19 @@ def destroy_database(uri):
 
 
 def get_temporary_uri(uri):
-    """Create a temporary URI given another one.
+    """Substitutes the database name with a random one.
 
     For example, given this uri:
     "mysql+mysqlconnector://root:@localhost/alembicverify"
 
     a call to ``get_temporary_uri(uri)`` could return something like this:
-    "mysql+mysqlconnector://root:@localhost/test_db_000da...898fe"
+    "mysql+mysqlconnector://root:@localhost/temp_000da...898fe"
 
     where the last part of the name is taken from a unique ID in hex
     format.
     """
     base, _ = uri.rsplit('/', 1)
-    uri = '{}/test_db_{}'.format(base, uuid4().hex)
+    uri = '{}/temp_{}'.format(base, uuid4().hex)
     return uri
 
 
