@@ -1,2 +1,2 @@
-Move this folder docs/testing to alembicverify/testing to activate these tests
-and the whole migrations mechanism. 
+Move the folder docs/testing to alembicverify/testing to be able to run
+the tests and use alembic's command line.
