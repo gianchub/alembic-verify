@@ -6,7 +6,8 @@ from logging.config import fileConfig
 from alembic import context
 from sqlalchemy import engine_from_config, pool
 
-from alembicverify.testing.models import Base
+from docs.testing.models import Base
+
 
 alembic_ini = os.path.join(
     os.path.dirname(os.path.dirname(__file__)), 'alembic.ini')
