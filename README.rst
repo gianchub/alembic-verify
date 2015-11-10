@@ -40,7 +40,7 @@ dump the differences by just adding one simple line of code:
 This will dump to a file a JSON dictionary that looks like this:
 
 
-.. code-block::
+.. code-block:: Python
 
     {
         'tables': {
@@ -140,7 +140,7 @@ Currently the library can detect the following differences:
 Installation
 ------------
 
-.. code-block::
+.. code-block:: bash
 
     $ pip install alembic-verify
 
