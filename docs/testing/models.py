@@ -1,28 +1,9 @@
 # -*- coding: utf-8 -*-
-from datetime import datetime
-
-from sqlalchemy import (
-    Column, DateTime, Enum, ForeignKey, Integer, String, Unicode
-)
+from sqlalchemy import Column, ForeignKey, Integer, String, Unicode
 from sqlalchemy.ext.declarative import declarative_base
 
 
-class Base(object):
-    created_at = Column(DateTime, default=datetime.utcnow)
-    updated_at = Column(
-        DateTime,
-        default=datetime.utcnow,
-        onupdate=datetime.utcnow
-    )
-    deleted_at = Column(DateTime, nullable=True)
-    mysql_character_set = "utf8"
-
-    def delete(self):
-        if self.deleted_at is None:
-            self.deleted_at = datetime.utcnow()
-
-
-Base = declarative_base(cls=Base)
+Base = declarative_base()
 
 
 class Employee(Base):

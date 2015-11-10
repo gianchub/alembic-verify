@@ -18,18 +18,12 @@ import sqlalchemy as sa
 
 def upgrade():
     op.create_table('companies',
-        sa.Column('created_at', sa.DateTime(), nullable=True),
-        sa.Column('updated_at', sa.DateTime(), nullable=True),
-        sa.Column('deleted_at', sa.DateTime(), nullable=True),
         sa.Column('id', sa.Integer(), nullable=False),
         sa.Column('name', sa.Unicode(length=200), nullable=False),
         sa.PrimaryKeyConstraint('id'),
         sa.UniqueConstraint('name')
     )
     op.create_table('employees',
-        sa.Column('created_at', sa.DateTime(), nullable=True),
-        sa.Column('updated_at', sa.DateTime(), nullable=True),
-        sa.Column('deleted_at', sa.DateTime(), nullable=True),
         sa.Column('id', sa.Integer(), nullable=False),
         sa.Column('name', sa.Unicode(length=200), nullable=True),
         sa.Column('age', sa.Integer(), nullable=False),
@@ -47,9 +41,6 @@ def upgrade():
         sa.UniqueConstraint('name')
     )
     op.create_table('addresses',
-        sa.Column('created_at', sa.DateTime(), nullable=True),
-        sa.Column('updated_at', sa.DateTime(), nullable=True),
-        sa.Column('deleted_at', sa.DateTime(), nullable=True),
         sa.Column('id', sa.Integer(), nullable=False),
         sa.Column('address', sa.Unicode(length=200), nullable=True),
         sa.Column('zip_code', sa.Unicode(length=20), nullable=True),
@@ -62,9 +53,6 @@ def upgrade():
         sa.PrimaryKeyConstraint('id')
     )
     op.create_table('phone_numbers',
-        sa.Column('created_at', sa.DateTime(), nullable=True),
-        sa.Column('updated_at', sa.DateTime(), nullable=True),
-        sa.Column('deleted_at', sa.DateTime(), nullable=True),
         sa.Column('id', sa.Integer(), nullable=False),
         sa.Column('number', sa.String(length=40), nullable=True),
         sa.Column('owner', sa.Integer(), nullable=False),

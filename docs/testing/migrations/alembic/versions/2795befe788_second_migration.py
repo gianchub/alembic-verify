@@ -18,9 +18,6 @@ from sqlalchemy.dialects import mysql
 
 def upgrade():
     op.create_table('roles',
-        sa.Column('created_at', sa.DateTime(), nullable=True),
-        sa.Column('updated_at', sa.DateTime(), nullable=True),
-        sa.Column('deleted_at', sa.DateTime(), nullable=True),
         sa.Column('id', sa.Integer(), nullable=False),
         sa.Column('name', sa.Unicode(length=50), nullable=False),
         sa.PrimaryKeyConstraint('id')
@@ -69,9 +66,6 @@ def downgrade():
     op.drop_column('employees', 'role_id')
     op.drop_column('employees', 'number_of_pets')
     op.create_table('addresses',
-        sa.Column('created_at', mysql.DATETIME(), nullable=True),
-        sa.Column('updated_at', mysql.DATETIME(), nullable=True),
-        sa.Column('deleted_at', mysql.DATETIME(), nullable=True),
         sa.Column('id', mysql.INTEGER(display_width=11), nullable=False),
         sa.Column('address', mysql.VARCHAR(length=200), nullable=True),
         sa.Column('zip_code', mysql.VARCHAR(length=20), nullable=True),
