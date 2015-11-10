@@ -3,8 +3,8 @@ Alembic Verify
 
 .. pull-quote::
 
-    A library that allows developer to quickly check if two database schemas
-    are in sync.
+    Verify that your alembic migrations are valid and equivalent to your models.
+
 
 A quick example
 ---------------
