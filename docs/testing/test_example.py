@@ -62,14 +62,29 @@ def test_same_schema_is_the_same(
 
     assert result.is_match
 
+@pytest.mark.usefixtures("new_db_left")
+@pytest.mark.usefixtures("new_db_right")
+def test_model_and_migration_schemas_are_the_same(
+        uri_left, uri_right, alembic_config_left):
+    """Compare two databases.
+
+    Compares the database obtained with all migrations against the
+    one we get out of the models.
+    """
+    prepare_schema_from_migrations(uri_left, alembic_config_left)
+    prepare_schema_from_models(uri_right, Base)
+
+    result = compare(uri_left, uri_right, set(['alembic_version']))
+
+    assert result.is_match
+
 
 @pytest.mark.usefixtures("new_db_left")
 @pytest.mark.usefixtures("new_db_right")
 def test_model_and_migration_schemas_are_not_the_same(
         uri_left, uri_right, alembic_config_left):
     """Compares the database obtained with the first migration against
-    the one we get out of the models.  It produces a text file with the
-    results to help debug differences.
+    the one we get out of the models.
     """
     prepare_schema_from_migrations(
         uri_left, alembic_config_left, revision="+1")
@@ -212,21 +227,3 @@ def compare_error_dicts(err1, err2):
         assert_items_equal(walk_dict(err1, path), walk_dict(err2, path))
 
     assert sorted(json.dumps(err1)) == sorted(json.dumps(err2))
-
-
-@pytest.mark.usefixtures("new_db_left")
-@pytest.mark.usefixtures("new_db_right")
-def test_model_and_migration_schemas_are_the_same(
-        uri_left, uri_right, alembic_config_left):
-    """Compare two databases.
-
-    Compares the database obtained with all migrations against the
-    one we get out of the models.  It produces a text file with the
-    results to help debug differences.
-    """
-    prepare_schema_from_migrations(uri_left, alembic_config_left)
-    prepare_schema_from_models(uri_right, Base)
-
-    result = compare(uri_left, uri_right, set(['alembic_version']))
-
-    assert result.is_match
