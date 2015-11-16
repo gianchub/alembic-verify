@@ -46,7 +46,7 @@ setup(
     #     command, in order for the dependency to be processed, and this
     #     behaviour is deprecated apparenly in favour of requirements.txt
     #     file.
-    dependency_links = [
+    dependency_links=[
         "git+https://github.com/Overseas-Student-Living/sqlalchemy-diff.git"
         "@PLAT-245#egg=sqlalchemy-diff-0.0.1",
     ],
