@@ -2,9 +2,9 @@
 import pytest
 
 from sqlalchemydiff.util import (
+    destroy_database,
     get_temporary_uri,
     new_db,
-    destroy_database
 )
 
 from alembicverify.util import make_alembic_config
