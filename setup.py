@@ -25,7 +25,7 @@ setup(
         "mock==1.3.0",
         "mysql-connector-python==2.0.4",
         "sqlalchemy-utils==0.31.2",
-        "sqlalchemy-diff",
+        "sqlalchemy-diff==0.0.1",
     ],
     extras_require={
         'dev': [
@@ -38,17 +38,23 @@ setup(
     },
 
     # TODO: Having to declare dependencies like this exposes two issues:
-    # 1 - We have to use git+https://... instead of git+ssh://... which
-    #     doesn't work (ssh URL works perfectly if run manually from
-    #     the console, though).  Using https means we need to manually
-    #     insert username/password when we pip install the packages.
+    # 1 - Using the github link with ssh won't work using setup.py.
+    #     It works when I manually try it, but not in the setup.
+    #     Using the https link will ask for username and password, which
+    #     cause other issues.  Therefore I am temporarily using a tar.gz
+    #     obtained by running `python setup.py sdist` on the sqlalchemy-diff
+    #     library.
     # 2 - We need to pass --process-dependency-links to the $ pip install ...
     #     command, in order for the dependency to be processed, and this
     #     behaviour is deprecated apparenly in favour of requirements.txt
     #     file.
+    #
+    # Installation command is now:
+    #     pip install -e ".[dev,docs]" --process-dependency-links
+    #       --allow-external mysql-connector-python
+    #
     dependency_links=[
-        "git+https://github.com/Overseas-Student-Living/sqlalchemy-diff.git"
-        "@PLAT-245#egg=sqlalchemy-diff-0.0.1",
+        "dists/sqlalchemy-diff-0.0.1.tar.gz",
     ],
     entry_points={
         'pytest11': [
