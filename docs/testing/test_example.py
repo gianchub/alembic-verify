@@ -2,16 +2,15 @@
 import json
 import os
 
-from alembic import command
 import pytest
+from alembic import command
+from sqlalchemydiff import compare
+from sqlalchemydiff.util import prepare_schema_from_models, walk_dict
 
-from alembicverify.comparer import compare
 from alembicverify.util import (
     get_current_revision,
     get_head_revision,
     prepare_schema_from_migrations,
-    prepare_schema_from_models,
-    walk_dict,
 )
 from test import assert_items_equal
 from .models import Base
@@ -61,7 +60,7 @@ def test_same_schema_is_the_same(
     # uncomment to see the dump of info dict
     # result.dump_info()
 
-    assert True == result.is_match
+    assert result.is_match
 
 
 @pytest.mark.usefixtures("new_db_left")
@@ -230,7 +229,4 @@ def test_model_and_migration_schemas_are_the_same(
 
     result = compare(uri_left, uri_right, set(['alembic_version']))
 
-    # uncomment to see the dump of errors dict
-    # result.dump_errors()
-
-    assert True == result.is_match
+    assert result.is_match

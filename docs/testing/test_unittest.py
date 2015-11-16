@@ -1,39 +1,35 @@
 # -*- coding: utf-8 -*-
-
-"""
-This test suite is just to demonstrate how one could test their models
-and migrations using this library and a classical approach based on
-unittest.
-"""
-
 import json
 import os
-from unittest import TestCase
+import unittest
 
 from alembic import command
+from sqlalchemydiff import compare
+from sqlalchemydiff.util import (
+    destroy_database,
+    get_temporary_uri,
+    new_db,
+    prepare_schema_from_models,
+    walk_dict,
+)
 
-from alembicverify.comparer import compare
 from alembicverify.util import (
     get_current_revision,
     get_head_revision,
-    get_temporary_uri,
     make_alembic_config,
-    new_db,
     prepare_schema_from_migrations,
-    prepare_schema_from_models,
-    destroy_database,
-    walk_dict,
 )
 from test import assert_items_equal
 from .models import Base
 
 
-class TestCompare(TestCase):
+alembic_root = os.path.join(os.path.dirname(__file__), 'migrations', 'alembic')
+
+
+class TestExample(unittest.TestCase):
 
     def setUp(self):
         uri = "mysql+mysqlconnector://root:@localhost/alembicverify"
-        alembic_root = os.path.join(
-            os.path.dirname(__file__), 'migrations', 'alembic')
 
         self.uri_left = get_temporary_uri(uri)
         self.uri_right = get_temporary_uri(uri)
@@ -63,7 +59,7 @@ class TestCompare(TestCase):
         current = get_current_revision(
             self.alembic_config_left, engine, script)
 
-        self.assertEqual(head, current)
+        assert head == current
 
         while current is not None:
             command.downgrade(self.alembic_config_left, '-1')
@@ -84,10 +80,22 @@ class TestCompare(TestCase):
         result = compare(
             self.uri_left, self.uri_right, set(['alembic_version']))
 
-        # uncomment to see the dump of info dict
-        # result.dump_info()
+        assert result.is_match
 
-        self.assertTrue(result.is_match)
+    def test_model_and_migration_schemas_are_the_same(self):
+        """Compare two databases.
+
+        Compares the database obtained with all migrations against the
+        one we get out of the models.  It produces a text file with the
+        results to help debug differences.
+        """
+        prepare_schema_from_migrations(self.uri_left, self.alembic_config_left)
+        prepare_schema_from_models(self.uri_right, Base)
+
+        result = compare(
+            self.uri_left, self.uri_right, set(['alembic_version']))
+
+        assert result.is_match
 
     def test_model_and_migration_schemas_are_not_the_same(self):
         """Compares the database obtained with the first migration against
@@ -100,9 +108,6 @@ class TestCompare(TestCase):
 
         result = compare(
             self.uri_left, self.uri_right, set(['alembic_version']))
-
-        # uncomment to see the dump of errors dict
-        # result.dump_errors()
 
         errors = {
             'tables': {
@@ -218,8 +223,8 @@ class TestCompare(TestCase):
         an order-insensitive comparison of all lists, and finally it compares
         that the sorted JSON dump of both dicts is the same.
         """
-        self.assertEqual(err1['tables'], err2['tables'])
-        self.assertEqual(err1['uris'], err2['uris'])
+        assert err1['tables'] == err2['tables']
+        assert err1['uris'] == err2['uris']
 
         paths = [
             ['tables_data', 'employees', 'columns', 'left_only'],
@@ -234,22 +239,4 @@ class TestCompare(TestCase):
         for path in paths:
             assert_items_equal(walk_dict(err1, path), walk_dict(err2, path))
 
-        self.assertEqual(sorted(json.dumps(err1)), sorted(json.dumps(err2)))
-
-    def test_model_and_migration_schemas_are_the_same(self):
-        """Compare two databases.
-
-        Compares the database obtained with all migrations against the
-        one we get out of the models.  It produces a text file with the
-        results to help debug differences.
-        """
-        prepare_schema_from_migrations(self.uri_left, self.alembic_config_left)
-        prepare_schema_from_models(self.uri_right, Base)
-
-        result = compare(
-            self.uri_left, self.uri_right, set(['alembic_version']))
-
-        # uncomment to see the dump of errors dict
-        # result.dump_errors()
-
-        self.assertTrue(result.is_match)
+        assert sorted(json.dumps(err1)) == sorted(json.dumps(err2))

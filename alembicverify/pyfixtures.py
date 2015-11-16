@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 import pytest
 
-from alembicverify.util import (
+from sqlalchemydiff.util import (
     get_temporary_uri,
-    make_alembic_config,
     new_db,
-    destroy_database,
+    destroy_database
 )
+
+from alembicverify.util import make_alembic_config
 
 
 @pytest.fixture(scope="module")
