@@ -1,28 +1,9 @@
 # -*- coding: utf-8 -*-
 import pytest
 
-from sqlalchemydiff.util import (
-    destroy_database,
-    get_temporary_uri,
-    new_db,
-)
+from sqlalchemydiff.util import destroy_database, new_db
 
 from alembicverify.util import make_alembic_config
-
-
-@pytest.fixture(scope="module")
-def db_uri():
-    return "mysql+mysqlconnector://root:@localhost/alembicverify"
-
-
-@pytest.fixture(scope="module")
-def uri_left(db_uri):
-    return get_temporary_uri(db_uri)
-
-
-@pytest.fixture(scope="module")
-def uri_right(db_uri):
-    return get_temporary_uri(db_uri)
 
 
 @pytest.fixture

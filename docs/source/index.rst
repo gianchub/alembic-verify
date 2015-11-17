@@ -10,33 +10,31 @@ PyTest Example
 --------------
 
 
-Testing Migrations
-^^^^^^^^^^^^^^^^^^
+Validating Migrations
+^^^^^^^^^^^^^^^^^^^^^
 
-This is how you can verify that your Alembic migrations are valid:
+Copy the following test suite into your project to verify that your
+migrations are valid. You will have to adapt the ``alembic_root`` and
+db related fixture to your structure.  All other fixtures are included
+as part of alembic-verify.
 
 .. literalinclude:: ../testing/test_example.py
-    :lines: 6, 10-14, 25-43
+    :lines: 1-59
 
 
 Testing Migrations against Models
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-This is how you can verify that the databases produced by your migrations
-and models are the same.
+You can copy this test in your code to make sure your migrations are
+always up to date with your models.  If any change in either of those
+would leave them out of sync, this test will fail.
 
 .. literalinclude:: ../testing/test_example.py
-    :lines: 7, 64-79
+    :lines: 62-76
 
 
-A full PyTest example
----------------------
-
-Click :ref:`here <full_example>` to see a full PyTest example.
-
-
-A full Unittest example
------------------------
+Using unittest
+--------------
 
 If you prefer to use a testing approach based on unittest, you can find
 an example on how to do it :ref:`here <full_example_unittest>`.

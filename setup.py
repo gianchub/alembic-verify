@@ -17,7 +17,7 @@ setup(
     description='A library to verify migrations and models are in sync.',
     long_description=readme,
     author='student.com',
-    author_email='dark-side@student.com',  # TODO - Add proper email here
+    author_email='wearehiring@student.com',
     url='https://github.com/Overseas-Student-Living/alembic-verify',
     packages=find_packages(exclude=['test', 'test.*']),
     install_requires=[

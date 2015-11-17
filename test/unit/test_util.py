@@ -26,7 +26,7 @@ def Config_mock():
 
 
 @pytest.yield_fixture
-def ScriptDirectory_mock():
+def script_directory_mock():
     with patch('alembicverify.util.ScriptDirectory') as m:
         yield m
 
@@ -65,7 +65,7 @@ def test_make_alembic_config(Config_mock):
 
 
 def test_prepare_schema_for_migrations(
-        Config_mock, create_engine_mock, ScriptDirectory_mock, command_mock):
+        Config_mock, create_engine_mock, script_directory_mock, command_mock):
     uri = "Migrations URI"
     config = Config_mock.return_value
 
@@ -73,25 +73,25 @@ def test_prepare_schema_for_migrations(
         uri, config, revision="some revision")
 
     assert create_engine_mock.return_value == engine
-    assert ScriptDirectory_mock.from_config.return_value == script
+    assert script_directory_mock.from_config.return_value == script
 
     create_engine_mock.assert_called_once_with(uri)
-    ScriptDirectory_mock.from_config.assert_called_once_with(config)
+    script_directory_mock.from_config.assert_called_once_with(config)
     command_mock.upgrade.assert_called_once_with(config, "some revision")
 
 
 def test_prepare_schema_for_migrations_default_revision_value(
-        Config_mock, create_engine_mock, ScriptDirectory_mock, command_mock):
+        Config_mock, create_engine_mock, script_directory_mock, command_mock):
     uri = "Migrations URI"
     config = Config_mock.return_value
 
     engine, script = prepare_schema_from_migrations(uri, config)
 
     assert create_engine_mock.return_value == engine
-    assert ScriptDirectory_mock.from_config.return_value == script
+    assert script_directory_mock.from_config.return_value == script
 
     create_engine_mock.assert_called_once_with(uri)
-    ScriptDirectory_mock.from_config.assert_called_once_with(config)
+    script_directory_mock.from_config.assert_called_once_with(config)
     command_mock.upgrade.assert_called_once_with(config, "head")
 
 
