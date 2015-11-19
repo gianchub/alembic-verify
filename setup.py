@@ -13,7 +13,7 @@ with open(os.path.join(here, 'README.rst'), 'r', 'utf-8') as stream:
 
 setup(
     name='alembic-verify',
-    version='0.0.2',
+    version='0.0.3',
     description='A library to verify migrations and models are in sync.',
     long_description=readme,
     author='student.com',
@@ -25,7 +25,7 @@ setup(
         "mock==1.3.0",
         "mysql-connector-python==2.0.4",
         "sqlalchemy-utils==0.31.2",
-        "sqlalchemy-diff==0.0.2",
+        "sqlalchemy-diff==0.0.3",
     ],
     extras_require={
         'dev': [
@@ -37,7 +37,7 @@ setup(
         ],
     },
     dependency_links=[
-        "dists/sqlalchemy-diff-0.0.2.tar.gz",
+        "dists/sqlalchemy-diff-0.0.3.tar.gz",
     ],
     entry_points={
         'pytest11': [
