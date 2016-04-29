@@ -37,10 +37,6 @@ setup(
             "Sphinx==1.3.1",
         ],
     },
-    dependency_links=[
-        "dists/sqlalchemy-diff-0.0.4.tar.gz",
-        "dists/mysql-connector-python-2.0.4.zip",
-    ],
     entry_points={
         'pytest11': [
             'pytest_alembic_verify=alembicverify.pyfixtures'
