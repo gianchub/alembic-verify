@@ -26,6 +26,7 @@ setup(
         "mysql-connector-python==2.0.4",
         "sqlalchemy-utils==0.31.2",
         "sqlalchemy-diff==0.0.4",
+        "pyyaml==3.11",
     ],
     extras_require={
         'dev': [

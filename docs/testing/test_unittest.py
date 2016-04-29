@@ -2,6 +2,7 @@
 import os
 import unittest
 
+import yaml
 from alembic import command
 from sqlalchemydiff import compare
 from sqlalchemydiff.util import (
@@ -18,15 +19,21 @@ from alembicverify.util import (
     prepare_schema_from_migrations,
 )
 from .models import Base
+from .conftest import db_uri
 
 
 alembic_root = os.path.join(os.path.dirname(__file__), 'migrations', 'alembic')
+config_file = os.path.join(
+    os.path.dirname(__file__), '../..', 'config', 'config.yaml'
+)
 
 
 class TestExample(unittest.TestCase):
 
     def setUp(self):
-        uri = "mysql+mysqlconnector://root:@localhost/alembicverify"
+        with open(config_file) as stream:
+            config = yaml.load(stream.read())
+        uri = config['DB_URIS']['test']
 
         self.uri_left = get_temporary_uri(uri)
         self.uri_right = get_temporary_uri(uri)
