@@ -19,7 +19,6 @@ from alembicverify.util import (
     prepare_schema_from_migrations,
 )
 from .models import Base
-from .conftest import db_uri
 
 
 alembic_root = os.path.join(os.path.dirname(__file__), 'migrations', 'alembic')
