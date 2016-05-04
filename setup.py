@@ -24,8 +24,7 @@ setup(
         "six==1.10.0",
         "mock>=1.3.0",
         "mysql-connector-python==2.0.4",
-        "sqlalchemy-utils==0.31.2",
-        "sqlalchemy-diff==0.0.4",
+        "sqlalchemy-diff==0.1.0",
         "pyyaml==3.11",
     ],
     extras_require={
