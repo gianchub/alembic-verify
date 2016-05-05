@@ -2,7 +2,6 @@
 import os
 import unittest
 
-import yaml
 from alembic import command
 from sqlalchemydiff import compare
 from sqlalchemydiff.util import (
@@ -30,9 +29,9 @@ config_file = os.path.join(
 class TestExample(unittest.TestCase):
 
     def setUp(self):
-        with open(config_file) as stream:
-            config = yaml.load(stream.read())
-        uri = config['DB_URIS']['test']
+        uri = (
+            "mysql+mysqlconnector://root:password@localhost:3306/alembicverify"
+        )
 
         self.uri_left = get_temporary_uri(uri)
         self.uri_right = get_temporary_uri(uri)
