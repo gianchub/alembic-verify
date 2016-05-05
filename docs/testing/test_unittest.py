@@ -21,9 +21,6 @@ from .models import Base
 
 
 alembic_root = os.path.join(os.path.dirname(__file__), 'migrations', 'alembic')
-config_file = os.path.join(
-    os.path.dirname(__file__), '../..', 'config', 'config.yaml'
-)
 
 
 class TestExample(unittest.TestCase):
