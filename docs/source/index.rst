@@ -19,7 +19,7 @@ db related fixture to your structure.  All other fixtures are included
 as part of alembic-verify.
 
 .. literalinclude:: ../testing/test_example.py
-    :lines: 1-59
+    :lines: 1-54
 
 
 Testing Migrations against Models
@@ -30,7 +30,7 @@ always up to date with your models.  If any change in either of those
 would leave them out of sync, this test will fail.
 
 .. literalinclude:: ../testing/test_example.py
-    :lines: 62-76
+    :lines: 57-71
 
 
 Using unittest

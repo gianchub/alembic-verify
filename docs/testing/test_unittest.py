@@ -26,7 +26,9 @@ alembic_root = os.path.join(os.path.dirname(__file__), 'migrations', 'alembic')
 class TestExample(unittest.TestCase):
 
     def setUp(self):
-        uri = "mysql+mysqlconnector://root:@localhost/alembicverify"
+        uri = (
+            "mysql+mysqlconnector://root:password@localhost:3306/alembicverify"
+        )
 
         self.uri_left = get_temporary_uri(uri)
         self.uri_right = get_temporary_uri(uri)

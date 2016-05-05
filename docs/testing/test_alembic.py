@@ -19,11 +19,6 @@ def alembic_root():
 
 
 @pytest.fixture(scope="module")
-def db_uri():
-    return "mysql+mysqlconnector://root:@localhost/alembicverify"
-
-
-@pytest.fixture(scope="module")
 def uri_left(db_uri):
     return get_temporary_uri(db_uri)
 
