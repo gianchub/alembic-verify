@@ -5,4 +5,8 @@ Alembic Verify
 
     Verify that your alembic migrations are valid and equivalent to your models.
 
-Documentation here: (link to read the docs)
+
+License
+-------
+
+Apache 2.0. See LICENSE for details.
