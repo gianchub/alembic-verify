@@ -13,7 +13,7 @@ with open(os.path.join(here, 'README.rst'), 'r', 'utf-8') as stream:
 
 setup(
     name='alembic-verify',
-    version='0.1.2',
+    version='0.1.3',
     description='A library to verify migrations and models are in sync.',
     long_description=readme,
     author='student.com',
