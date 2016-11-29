@@ -24,7 +24,6 @@ setup(
         "six>=1.10.0",
         "mysql-connector-python==2.0.4",
         "sqlalchemy-diff>=0.1.1",
-        "SQLAlchemy<1.1.0",
         "alembic>=0.8.3",
     ],
     extras_require={
