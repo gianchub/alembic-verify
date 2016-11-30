@@ -22,7 +22,6 @@ setup(
     packages=find_packages(exclude=['test', 'test.*']),
     install_requires=[
         "six>=1.10.0",
-        "mysql-connector-python==2.0.4",
         "sqlalchemy-diff>=0.1.1",
         "alembic>=0.8.3",
     ],
@@ -30,6 +29,7 @@ setup(
         'dev': [
             "mock==2.0.0",
             "pytest==3.0.3",
+            "pylint==1.5.1",
             "flake8==3.0.4",
             "coverage==4.2",
         ],
