@@ -22,7 +22,7 @@ setup(
     packages=find_packages(exclude=['test', 'test.*']),
     install_requires=[
         "six>=1.10.0",
-        "sqlalchemy-diff>=0.1.2",
+        "sqlalchemy-diff>=0.1.3",
         "alembic>=0.8.3",
     ],
     extras_require={
