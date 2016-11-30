@@ -2,7 +2,7 @@
 
 from alembic import command
 from alembic.config import Config
-from alembic.environment import EnvironmentContext
+from alembic.environment import EnvironmentContext  # pylint: disable=E0401
 from alembic.script import ScriptDirectory
 from sqlalchemy import create_engine
 

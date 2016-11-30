@@ -5,6 +5,11 @@ Alembic Verify
 
     Verify that your alembic migrations are valid and equivalent to your models.
 
+Documentation
+-------------
+
+See `<http://alembic-verify.readthedocs.org>`_.
+
 
 License
 -------

@@ -22,14 +22,14 @@ setup(
     packages=find_packages(exclude=['test', 'test.*']),
     install_requires=[
         "six>=1.10.0",
-        "mysql-connector-python==2.0.4",
-        "sqlalchemy-diff>=0.1.1",
+        "sqlalchemy-diff>=0.1.3",
         "alembic>=0.8.3",
     ],
     extras_require={
         'dev': [
             "mock==2.0.0",
             "pytest==3.0.3",
+            "pylint==1.5.1",
             "flake8==3.0.4",
             "coverage==4.2",
         ],
@@ -46,7 +46,8 @@ setup(
     license='Apache License, Version 2.0',
     classifiers=[
         "Programming Language :: Python",
-        "Operating System :: Linux",
+        "Operating System :: POSIX",
+        "Operating System :: MacOS :: MacOS X",
         "Programming Language :: Python :: 2",
         "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3",
