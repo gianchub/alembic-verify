@@ -18,7 +18,7 @@ setup(
     long_description=readme,
     author='student.com',
     author_email='wearehiring@student.com',
-    url='https://github.com/Overseas-Student-Living/alembic-verify',
+    url='https://github.com/gianchub/alembic-verify',
     packages=find_packages(exclude=['test', 'test.*']),
     install_requires=[
         "six>=1.10.0",
