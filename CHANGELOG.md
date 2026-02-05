@@ -1,3 +1,6 @@
+## [1.0.2] - 2026-02-05
+  - Amended README requirements section
+
 ## [1.0.1] - 2026-02-05
   - Pytest as main dependency
 

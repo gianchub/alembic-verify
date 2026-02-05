@@ -53,6 +53,7 @@ We have renamed the fixtures to be more consistent and easier to understand. The
 - Python 3.10, 3.11, 3.12, 3.13, or 3.14
 - SQLAlchemy 1.4.* or 2.0+
 - Alembic >= 1.8.0
+- pytest >= 7.0.0
 
 
 ## Installation
