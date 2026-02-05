@@ -1,6 +1,6 @@
 [project]
 name = "alembic-verify"
-version = "1.0.0"
+version = "1.0.1"
 authors = [
     { name = "Fabrizio Romano", email = "gianchub@gmail.com" },
     { name = "Mark McArdle", email = "m.mc4rdle@gmail.com" },
