@@ -1,3 +1,6 @@
+## [1.0.1] - 2026-02-05
+  - Pytest as main dependency
+
 ## [1.0.0] - 2026-01-28
 
 - Modernized tooling (pyproject.toml, ruff, tox)
