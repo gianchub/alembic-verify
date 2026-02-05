@@ -1,6 +1,6 @@
 [project]
 name = "alembic-verify"
-version = "1.0.0"
+version = "1.0.1"
 authors = [
     { name = "Fabrizio Romano", email = "gianchub@gmail.com" },
     { name = "Mark McArdle", email = "m.mc4rdle@gmail.com" },
@@ -24,6 +24,7 @@ classifiers = [
 ]
 keywords = ["alembic", "migration", "verify", "sqlalchemy"]
 dependencies = [
+    "pytest>=7.0",
     "alembic>=1.8",
     "sqlalchemy>=1.4,<3",
     "sqlalchemy-utils>=0.40.0",
@@ -38,8 +39,7 @@ lint = [
     "ruff~=0.14.13",
 ]
 test = [
-    "pytest~=9.0.2",
-    "pytest-cov~=7.0.0",
+    "pytest-cov",
     "psycopg2-binary",
 ]
 all = ["alembic-verify[dev,lint,test]"]
