@@ -432,11 +432,8 @@ $ make lint
 ### Using Tox
 
 Test across Python 3.10–3.15 and both SQLAlchemy 1.4 and 2.x. The same PostgreSQL
-server must be running for these tests. Install all six Python interpreters first:
-
-```bash
-$ uv python install 3.10 3.11 3.12 3.13 3.14 3.15
-```
+server must be running for these tests. With the tox-uv plugin installed below,
+uv downloads missing Python interpreters automatically unless downloads are disabled.
 
 ```bash
 # Install tox with uv
@@ -448,6 +445,12 @@ $ make tox
 # Run specific environment
 $ uv tool run tox -e py315-test-sa14
 $ uv tool run tox -e py315-test-sa20
+```
+
+To install all interpreters ahead of time (optional):
+
+```bash
+$ uv python install 3.10 3.11 3.12 3.13 3.14 3.15
 ```
 
 Each tox environment runs the full test suite with coverage, type checking, and

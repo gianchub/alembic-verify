@@ -1,4 +1,4 @@
-## [Unreleased]
+## [1.0.3] - 2026-10-29
 
 - Added support for Python 3.15
 - Test Python 3.10–3.15 with SQLAlchemy 1.4 and 2.x in CI and tox
