@@ -1,3 +1,11 @@
+## [Unreleased]
+
+- Added support for Python 3.15
+- Test Python 3.10–3.15 with SQLAlchemy 1.4 and 2.x in CI and tox
+- Preserve the selected SQLAlchemy version when running CI checks
+- Constrain tox package dependencies to the selected SQLAlchemy series
+- Select the installed psycopg2 driver explicitly in tests and examples
+
 ## [1.0.2] - 2026-02-05
   - Amended README requirements section
 

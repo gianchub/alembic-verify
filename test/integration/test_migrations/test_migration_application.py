@@ -12,7 +12,7 @@ down_revision = "591a8001cae9"
 
 @pytest.fixture
 def alembic_db_uri():
-    return get_temporary_uri("postgresql://postgres:postgres@localhost:5433/")
+    return get_temporary_uri("postgresql+psycopg2://postgres:postgres@localhost:5433/")
 
 
 @pytest.mark.usefixtures("alembic_new_db")
