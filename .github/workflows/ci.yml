@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.10", "3.14"]
+        python-version: ["3.10", "3.15"]
 
     steps:
       - uses: actions/checkout@v4
@@ -31,13 +31,13 @@ jobs:
         run: uv pip install -e ".[lint]"
 
       - name: Run linting
-        run: make lint
+        run: make lint UV_ARGS='--no-project'
 
   typecheck:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.10", "3.14"]
+        python-version: ["3.10", "3.15"]
 
     steps:
     - uses: actions/checkout@v4
@@ -57,14 +57,14 @@ jobs:
       run: uv pip install -e ".[all]"
 
     - name: Run type checking
-      run: make ty
+      run: make ty UV_ARGS='--no-project'
 
   test:
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        python-version: ["3.10", "3.14"]
+        python-version: ["3.10", "3.11", "3.12", "3.13", "3.14", "3.15"]
         sqlalchemy-version: ["1.4", "2.0"]
 
     services:
@@ -97,15 +97,15 @@ jobs:
 
     - name: Install dependencies
       run: |
-        uv pip install -e ".[test]"
         if [ "${{ matrix.sqlalchemy-version }}" = "1.4" ]; then
-          uv pip install "sqlalchemy>=1.4,<2.0"
+          uv pip install -e ".[test]" "sqlalchemy>=1.4,<2.0"
         else
-          uv pip install "sqlalchemy>=2.0,<3.0"
+          uv pip install -e ".[test]" "sqlalchemy>=2.0,<3.0"
         fi
 
     - name: Run tests
-      run: make test
+      # Keep the SQLAlchemy version installed for this matrix entry.
+      run: make test UV_ARGS='--no-project'
       env:
         DB_TEST_USER: postgres
         DB_TEST_PASSWORD: postgres

@@ -50,7 +50,7 @@ We have renamed the fixtures to be more consistent and easier to understand. The
 
 ## Requirements
 
-- Python 3.10, 3.11, 3.12, 3.13, or 3.14
+- Python 3.10, 3.11, 3.12, 3.13, 3.14, or 3.15
 - SQLAlchemy 1.4.* or 2.0+
 - Alembic >= 1.8.0
 - pytest >= 7.0.0
@@ -92,7 +92,7 @@ def alembic_ini_location():
 @pytest.fixture
 def alembic_db_uri():
     """Database URI. Normally in tests you will want a unique temporary database name."""
-    base_uri = "postgresql://postgres:postgres@localhost:5432/"
+    base_uri = "postgresql+psycopg2://postgres:postgres@localhost:5432/"
     return f"{base_uri}test_{uuid4().hex}"
 ```
 
@@ -349,7 +349,7 @@ from test.integration.conftest import get_temporary_uri
 
 @pytest.fixture
 def alembic_db_uri_custom():
-    base_uri = "postgresql://postgres:postgres@localhost:5432/"
+    base_uri = "postgresql+psycopg2://postgres:postgres@localhost:5432/"
     return f"{base_uri}test_{uuid4().hex}"
 
 
@@ -390,20 +390,34 @@ def test_migration_upgrade_and_downgrade_context_manager(
    $ cd alembic-verify
    ```
 
-2. Install development dependencies:
+2. Create a virtual environment and install development dependencies:
    ```bash
-   $ uv pip install -e .[all]
+   $ uv venv --python 3.15
+   $ uv pip install -e ".[all]"
    ```
 
 
 ### Running Tests
 
-Use the Makefile:
+The full suite includes PostgreSQL integration tests. Start the test database
+(requires Docker) using the Makefile:
+
+```bash
+$ make docker-test-db-run
+```
+
+You can also use an existing PostgreSQL server at `localhost:5433` with user
+`postgres`, password `postgres`, and permission to create databases.
+The tests and examples explicitly select the `psycopg2` driver, installed by the
+`test` extra, so they work across both supported SQLAlchemy series.
+
+Run the full suite with coverage:
 
 ```bash
 $ make test
 ```
 
+The suite requires 100% coverage. The HTML coverage report is written to `htmlcov/`.
 
 ### Linting and Formatting
 
@@ -417,7 +431,9 @@ $ make lint
 
 ### Using Tox
 
-Test across multiple Python and SQLAlchemy versions:
+Test across Python 3.10–3.15 and both SQLAlchemy 1.4 and 2.x. The same PostgreSQL
+server must be running for these tests. With the tox-uv plugin installed below,
+uv downloads missing Python interpreters automatically unless downloads are disabled.
 
 ```bash
 # Install tox with uv
@@ -427,10 +443,21 @@ $ make install-tox-uv
 $ make tox
 
 # Run specific environment
-$ tox -e py314-test-sa14
-$ tox -e py314-test-sa20
+$ uv tool run tox -e py315-test-sa14
+$ uv tool run tox -e py315-test-sa20
 ```
 
+To install all interpreters ahead of time (optional):
+
+```bash
+$ uv python install 3.10 3.11 3.12 3.13 3.14 3.15
+```
+
+Each tox environment runs the full test suite with coverage, type checking, and
+linting. Package dependency installation is constrained to the environment's
+SQLAlchemy range. It uses `UV_ARGS='--no-project'` to preserve its Python and SQLAlchemy
+versions instead of synchronizing dependencies from `uv.lock`. Use the same
+argument when running Makefile checks in a manually prepared environment.
 
 ## Compatibility
 

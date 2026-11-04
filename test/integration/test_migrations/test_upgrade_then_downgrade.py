@@ -7,7 +7,7 @@ from test.integration.conftest import get_temporary_uri
 
 @pytest.fixture
 def alembic_db_uri():
-    return get_temporary_uri("postgresql://postgres:postgres@localhost:5433/")
+    return get_temporary_uri("postgresql+psycopg2://postgres:postgres@localhost:5433/")
 
 
 @pytest.mark.parametrize("revision", ["44352f0a4052", "9331f5cd7f8a"])
